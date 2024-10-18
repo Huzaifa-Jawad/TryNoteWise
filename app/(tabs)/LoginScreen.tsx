@@ -15,6 +15,8 @@ import LittleLemonHeader from '@/components/Header';
 import { ThemedText } from '@/components/ThemedText';
 import NoteWiseHeader from '@/components/Header';
 
+import { supabase } from './supabaseClient';
+
 
 type RootStackParamList = {
   Login: undefined;
@@ -27,32 +29,32 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-//   const handleSignIn = async () => {
-//     const { error } = await supabase.auth.signInWithPassword({
-//       email,
-//       password,
-//     });
-//     if (error) {
-//       Alert.alert('Error', error.message);
-//     } else {
-//       navigation.navigate('Home');
-//     }
-//   };
+  const handleSignIn = async () => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) {
+      Alert.alert('Error', error.message);
+    } else {
+      navigation.navigate('Home');
+    }
+  };
 
-//   const handleSignUp = async () => {
-//     const { error } = await supabase.auth.signUp({
-//       email,
-//       password,
-//     });
-//     if (error) {
-//       Alert.alert('Error', error.message);
-//     } else {
-//       Alert.alert(
-//         'Success',
-//         'Please check your email to confirm your account.'
-//       );
-//     }
-//   };
+  const handleSignUp = async () => {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+    if (error) {
+      Alert.alert('Error', error.message);
+    } else {
+      Alert.alert(
+        'Success',
+        'Please check your email to confirm your account.'
+      );
+    }
+  };
 
   return (
     <>
@@ -81,8 +83,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             secureTextEntry
             textContentType="password"
         />
-        <Button title="Sign In" />
-        <Button title="Sign Up" />
+        <Button title="Sign In" onPress={handleSignIn}/>
+        <Button title="Sign Up" onPress={handleSignUp}/>
         </KeyboardAvoidingView>
     </>
   );
