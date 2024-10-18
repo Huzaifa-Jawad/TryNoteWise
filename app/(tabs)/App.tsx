@@ -59,19 +59,38 @@
 
 // export default App;
 
-import * as React from 'react';
-import { View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './LoginScreen';  // Adjust the path if needed
+// import HomeScreen from './HomeScreen';    // Import your HomeScreen component
 
-// Import a local component here
-import LittleLemonHeader from '../../components/Header';
-export default function App() {
-return (
-  <View
-    style={{
-      flex: 1,
-      backgroundColor: '#495E57',
-    }}>
-    <LittleLemonHeader />
-  </View>
-);
-}
+// Define the types for the navigation stack
+type RootStackParamList = {
+  Login: undefined;
+  Home: undefined;
+};
+
+// Create the stack navigator
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const App: React.FC = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{ title: 'Login' }} // Optional: customize the screen header
+        />
+        {/* <Stack.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ title: 'Home' }} // Optional: customize the screen header
+        /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;

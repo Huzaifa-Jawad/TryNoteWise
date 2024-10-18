@@ -1,19 +1,22 @@
 // LoginScreen.tsx
 import React, { useState } from 'react';
 import {
-  View,
-  TextInput,
-  Button,
-  Alert,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
+    View,
+    TextInput,
+    Button,
+    Text,
+    Alert,
+    TouchableOpacity,
+    StyleSheet,
+    KeyboardAvoidingView,
+    Platform,
 } from 'react-native';
 // import { supabase } from './supabaseClient';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import LittleLemonHeader from '@/components/Header';
 import { ThemedText } from '@/components/ThemedText';
 import NoteWiseHeader from '@/components/Header';
+import NoteWiseFooter from '@/components/Footer';
 
 import { supabase } from './supabaseClient';
 
@@ -63,7 +66,6 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-        {/* <Text>Sign In</Text> */}
         
         <ThemedText type="title" style={styles.title_style}>Sign In</ThemedText>
         <TextInput
@@ -83,9 +85,19 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             secureTextEntry
             textContentType="password"
         />
-        <Button title="Sign In" onPress={handleSignIn}/>
-        <Button title="Sign Up" onPress={handleSignUp}/>
+        <>
+            <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+                <Text style={styles.button_text}>Sign In</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+                <Text style={styles.button_text}>Sign Up</Text>
+            </TouchableOpacity>
+        </>
+        
         </KeyboardAvoidingView>
+
+        <NoteWiseFooter />
+        
     </>
   );
 };
@@ -96,7 +108,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#44465c',
     justifyContent: 'center',
   },
   input: {
@@ -105,6 +117,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
+    backgroundColor: '#f0f0f0',
   },
   title_style: {
     fontSize: 32,
@@ -112,5 +125,20 @@ const styles = StyleSheet.create({
     lineHeight: 32,
     padding: 20,
     alignSelf: 'center',
-  }
+    color: '#f0f0f0',
+  },
+  // create a syle for the signup and signin buttons that have blue background and white text
+  button_text: {
+    color: '#fff',              // White text color
+    fontSize: 16,
+  },
+  button: {
+    backgroundColor: '#4CAF50', // Green background color
+    padding: 10,                // Padding inside the button
+    marginVertical: 10,         // Space between buttons
+    borderRadius: 5,            // Rounded corners
+    alignItems: 'center',       // Center the text inside the button
+    width: '75%',              // Full width
+    alignSelf: 'center',       // Center
+  },
 });
