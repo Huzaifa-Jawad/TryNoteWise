@@ -9,8 +9,12 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { supabase } from './supabaseClient';
+// import { supabase } from './supabaseClient';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import LittleLemonHeader from '@/components/Header';
+import { ThemedText } from '@/components/ThemedText';
+import NoteWiseHeader from '@/components/Header';
+
 
 type RootStackParamList = {
   Login: undefined;
@@ -23,58 +27,64 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const handleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      Alert.alert('Error', error.message);
-    } else {
-      navigation.navigate('Home');
-    }
-  };
+//   const handleSignIn = async () => {
+//     const { error } = await supabase.auth.signInWithPassword({
+//       email,
+//       password,
+//     });
+//     if (error) {
+//       Alert.alert('Error', error.message);
+//     } else {
+//       navigation.navigate('Home');
+//     }
+//   };
 
-  const handleSignUp = async () => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    if (error) {
-      Alert.alert('Error', error.message);
-    } else {
-      Alert.alert(
-        'Success',
-        'Please check your email to confirm your account.'
-      );
-    }
-  };
+//   const handleSignUp = async () => {
+//     const { error } = await supabase.auth.signUp({
+//       email,
+//       password,
+//     });
+//     if (error) {
+//       Alert.alert('Error', error.message);
+//     } else {
+//       Alert.alert(
+//         'Success',
+//         'Please check your email to confirm your account.'
+//       );
+//     }
+//   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        style={styles.input}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        textContentType="emailAddress"
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        style={styles.input}
-        secureTextEntry
-        textContentType="password"
-      />
-      <Button title="Sign In" onPress={handleSignIn} />
-      <Button title="Sign Up" onPress={handleSignUp} />
-    </KeyboardAvoidingView>
+    <>
+        <NoteWiseHeader />
+        <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        >
+        {/* <Text>Sign In</Text> */}
+        
+        <ThemedText type="title" style={styles.title_style}>Sign In</ThemedText>
+        <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+        />
+        <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            style={styles.input}
+            secureTextEntry
+            textContentType="password"
+        />
+        <Button title="Sign In" />
+        <Button title="Sign Up" />
+        </KeyboardAvoidingView>
+    </>
   );
 };
 
@@ -94,4 +104,11 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 8,
   },
+  title_style: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    lineHeight: 32,
+    padding: 20,
+    alignSelf: 'center',
+  }
 });

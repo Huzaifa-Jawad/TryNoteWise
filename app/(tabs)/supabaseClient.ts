@@ -1,7 +1,7 @@
-// supabaseClient.ts
-import { createClient } from '@supabase/supabase-js';
+// // supabaseClient.ts
+// import { createClient } from '@supabase/supabase-js';
 
-const SUPABASE_URL = 'https://your-project-ref.supabase.co';
-const SUPABASE_ANON_KEY = 'your-anon-key';
+// const SUPABASE_URL = 'https://your-project-ref.supabase.co';
+// const SUPABASE_ANON_KEY = 'your-anon-key';
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
