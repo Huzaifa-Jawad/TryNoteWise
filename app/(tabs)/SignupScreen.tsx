@@ -19,29 +19,33 @@ import NoteWiseFooter from '@/components/Footer';
 
 import { supabase } from './supabaseClient';
 
-
 type RootStackParamList = {
-  Login: undefined;
-  Home: undefined;
-};
+    Login: undefined;
+    Home: undefined;
+  };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-const LoginScreen: React.FC<Props> = ({ navigation }) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+const SignupView: React.FC<Props> = ({ navigation }) => {
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [username, setUsername] = useState<string>('');
 
-  const handleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      Alert.alert('Error', error.message);
-    } else {
-      navigation.navigate('Home');
-    }
-  };
+    const handleSignUp = async () => {
+        const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        });
+        if (error) {
+        Alert.alert('Error', error.message);
+        } else {
+        Alert.alert(
+            'Success',
+            'Please check your email to confirm your account.'
+        );
+        }
+    };
 
   return (
     <>
@@ -52,6 +56,17 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         >
         
         <ThemedText type="title" style={styles.title_style}>Sign In</ThemedText>
+
+        <TextInput
+            placeholder="Username"
+            value={username}
+            onChangeText={setUsername}
+            style={styles.input}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+        />
+
         <TextInput
             placeholder="Email"
             value={email}
@@ -69,9 +84,18 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             secureTextEntry
             textContentType="password"
         />
+
+        <TextInput
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            style={styles.input}
+            secureTextEntry
+            textContentType="password"
+        />
         <>
-            <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-                <Text style={styles.button_text}>Sign In</Text>
+            <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+                <Text style={styles.button_text}>Sign Up</Text>
             </TouchableOpacity>
         </>
         
@@ -83,7 +107,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
+export default SignupView;
 
 const styles = StyleSheet.create({
   container: {
